@@ -1,0 +1,29 @@
+{% assign nav_list = linklists[section.settings.nav_list] %}
+
+<header class="header">
+  <nav class="nav">
+    <ul class="nav__list">
+      {% for link in nav_list.links %}
+        <li class="nav__item">
+          <a class="nav__link" href="{{ link.url }}">
+            {{ link.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+</header>
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "nav_list",
+        "label": "Nav List"
+      }
+    ]
+  }
+{% endschema %}
