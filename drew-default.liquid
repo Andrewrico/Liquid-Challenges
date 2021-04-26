@@ -1,0 +1,121 @@
+{%comment%}
+
+{%- render "drew-default" with 
+      Headline: true Copy: true, Image: true, Action: true, {
+      class: "flex fdr jcc aic",
+      headline_content: "The headline",
+      copy_content: "Drew Default Copy",
+      action_href: "www.google.com",
+      action_content: "Learn More",
+      action_class: "button",
+      img_src: "https://cdn.shopify.com/s/files/1/0519/2404/1881/files/product-mysotre-982.jpg?v=1615323362",
+      img_metadata: "Drew Default Img",
+      img_inline: "min-width:300px; width:100%;"
+}-%}
+
+{%endcomment%}
+
+{% assign Headline = Headline %}
+{% assign Copy = Copy %}
+{% assign Action = Action %}
+{% assign Image = Image %}
+{% assign Icon = Icon %}
+
+{% capture ICON %}
+    {% render "icon" with icon_name %}
+{% endcapture %}
+
+{% capture HAEDLINE %}
+    <h3
+        {% if headline_id != blank %} id="{{ headline_id }}" {% endif %}
+        {% if headline_class != blank %} class="{{ headline_class }}"{% endif %}
+        {% if headline_inline != blank %} style="{{ headline_inline }}"{% endif %} 
+    >   {%- if headline_content != blank -%}{{ headline_content }} {%- endif -%}
+    </h3>
+{% endcapture %}
+
+{% capture COPY %}
+    <p
+        {% if copy_id != blank %} id="{{ copy_id }}" {% endif %}
+        {% if copy_class != blank %} class="{{ copy_class }} " {% endif %}
+        {% if copy_inline != blank %} style="{{ copy_inline }}" {% endif %} 
+    >   {%- if copy_content != blank -%} {{ copy_content }} {%- endif -%}
+    </p>
+{% endcapture %}
+
+{% capture ACTION %}
+    <a
+        {% if action_href != blank %} href="{{ action_href }}" {% endif %}
+        {% if action_id != blank %} id="{{ action_id }}" {% endif %}
+        {% if action_class != blank %} class="{{ action_class }} " {% endif %}
+        {% if action_inline != blank %} style="{{ action_inline }}" {% endif %} 
+    >   {%- if action_content != blank -%} {{ action_content }} {%- endif -%}
+    </a>
+{% endcapture %}
+
+{% capture IMAGE %}
+    <img
+        {% if img_src != blank %} src="{{ img_src }}" {% endif %}
+        {% if img_metadata != blank %} alt="{{ img_metadata }}" {% endif %}
+        {% if img_metadata != blank %} title="{{ img_metadata }}" {% endif %}
+        {% if img_id != blank %} id="{{ img_id }} " {% endif %}
+        {% if img_class != blank %} class="{{ img_class }} " {% endif %}
+        {% if img_inline != blank %} style="{{ img_inline }}" {% endif %} 
+    > 
+{% endcapture %}
+
+<div
+    {% if id != blank %} id="{{ id }}"{% endif %}
+    {% if class != blank %} class="{{ class }}"{% endif %}
+    {% if inline != blank %} style="{{ inline }}"{% endif %}
+>
+    {% if Copy == true and Headline == true and Action == true %}
+        {% assign Content = Content %}
+        {% case Content %}
+        {% when 'grid__item-content' %}
+            <div class="grid__item-content {{ contentClass }}"
+                {% if contentId != blank %} id="{{ contentId }}"{% endif %}
+                {% if contentInline != blank %} style="{{ contentInline }}"{% endif %}
+            >
+                {% if Headline == true and headline_content != blank %}{{ HAEDLINE }}{% endif %}
+                {% if Copy == true and copy_content != blank %}{{ COPY }}{% endif %}
+                {% if Action == true and action_content != blank %}{{ ACTION }}{% endif %}
+            </div>
+        {% else %}
+        <div
+            {% if contentId != blank %} id="{{ contentId }}"{% endif %}
+            {% if figureClass != blank %} class="{{ figureClass }}"{% endif %}
+            {% if contentInline != blank %} style="{{ contentInline }}"{% endif %}
+        >
+            {% if Headline == true and headline_content != blank %}{{ HAEDLINE }}{% endif %}
+            {% if Copy == true and copy_content != blank %}{{ COPY }}{% endif %}
+            {% if Action == true and action_content != blank %}{{ ACTION }}{% endif %}
+        </div>
+        {% endcase%} 
+    {% elsif Headline == true and headline_content != blank %}
+        {{ HAEDLINE }} 
+    {% elsif Copy == true and copy_content != blank %}
+        {{ COPY }}
+    {% elsif Action == true and action_content != blank %}
+        {{ ACTION }}
+    {% else %}
+        <p>Add some content</p> 
+    {% endif %}
+
+    {% if Image == true and img_src != blank %}
+        {% assign Figure = Figure %}
+        {% case Figure %}
+        {% when 'grid__item-media' %}
+            <div class="grid__item-media {{ figureClass }}"
+                {% if figureId != blank %} id="{{ figureId }}"{% endif %}
+                {% if figureInline != blank %} style="{{ figureInline }}"{% endif %}
+            >
+                {{ IMAGE }} 
+            </div>
+        {% else %}
+            {{ IMAGE }}
+        {% endcase%} 
+    {% endif %}
+</div>
+
+

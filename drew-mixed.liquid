@@ -1,0 +1,30 @@
+{%comment%}
+{%- render "icon" with "facebook"  { 
+      title: "andrew",
+      desc: "rico",
+      id: "Unique",
+      class: "myclass",
+      inline: "CSS",
+      height: "200", 
+      width: "200", 
+      fill: "red" 
+    } 
+-%}
+{%- render "drew-default" with 
+      Headline: true Copy: true, Image: true, Social: true {
+      class: "grid column-2 first-2",
+      headline_content: "The headline",
+      copy_content: "Drew Default Copy",
+      img_src: "https://cdn.shopify.com/s/files/1/0519/2404/1881/files/product-mysotre-982.jpg?v=1615323362",
+      img_metadata: "Drew Default Img",
+      img_inline: "min-width:300px; width:100%;"
+}-%}
+{%- render "icon" with 
+      icon: "icon-facebook",
+      width: "100",
+      height: "100",
+      fill: "#dddddd",
+}-%}
+{%endcomment%}
+
+
