@@ -1,0 +1,158 @@
+{{ content_for_index }}
+
+<section class="section">
+    <div class="grid column-4">
+        {% for product in collections.all.products %}
+        <div class="grid__item">
+           <h3 style="font-size:16px;">{{ product.title }}</h3>
+            <a 
+                id="{{ product.id }}" 
+                data-id="{{ product.id }}" 
+                data-handle="{{ product.handle }}" 
+                class="button__quickview" 
+                href="#">
+                LEARN MORE
+            </a>
+        </div>
+        {% endfor %}
+       
+
+    </div>
+</section>
+
+
+<!-- {% assign quickview = false %}
+{% if quickview == true %} -->
+
+<!-- {% endif%} -->
+
+<div id="quickview" data-quickview="{{ quickview }}">
+  
+        <div>Dicount</div>
+        <div>Finances</div>
+</div>
+
+<script>
+   (function() {
+// Quickview
+    var quickview = document.querySelector('.quickview__item');
+    const quickviews = document.querySelectorAll('.button__quickview');
+    quickviews.forEach(item => {
+        item.dataset.quickview = false;
+        item.addEventListener('click', event => {
+            item.dataset.quickview = true;
+            $.getJSON(`/products/${item.dataset.handle}.js`, function(product){ 
+                $('#quickview').html(`
+
+                <div>
+                    <a href="${product.url }" class="product__anchor">
+                        <img class="product__img" src=" ${product.featured_image}" alt="${product.title}"/>
+                        <p class="product__title"> ${product.title} </p>
+                        <p class="product__price"> ${product.price} </p>
+                    </a>
+                </div>
+
+                `);
+                console.log(product.title);
+                window.addEventListener('load', (event) => {
+                    console.log(objectData.product);
+                });
+            });
+        });
+    });
+    // {% if product.handle %}
+ 
+    // window.objectData = window.objectData  || {};
+ 
+    // window.objectData.product = {{ product | json }};
+    // {% endif %}
+
+  })(); 
+  
+
+
+    
+
+</script>
+
+
+
+
+<script>
+
+    
+    // Quickview
+    // const quickviews = document.querySelectorAll('.button__quickview');
+    // quickviews.forEach(item => {
+    
+
+//         item.addEventListener('click', event => {
+//             if( item.id === item.dataset.id ) {
+//                 var cartContents = fetch('/cart.js')
+//   .then(response => response.json())
+//   .then(data => { return data });
+
+                // fetch("/products/red-rain-coat.js}")
+                //     .then(response => response.json())
+                //     .then(({ item }) => {
+                //     if (item.length > 0 ) {
+                //         const product = item[0];
+                //         alert(`${product.title}`);
+                //     }
+                // });
+    //         }
+    //     });
+    // });
+
+// fetch("/products.json?product_id={{data.id}}&limit=4")
+//  .then(response => response.json())
+//  .then(({ products }) => {
+//    if (products.length > 0) {
+//      const product = products[0];
+//      alert(
+//        `The title of the first recommended product is: ${
+//         product.title
+//        }`
+//      );
+//    }
+//  });
+
+
+//     jQuery.getJSON('/products/red-rain-coat.js', function(product) {
+//   alert('The title of this product is ' + product.title);
+// } );
+</script>
+{% comment%}
+<section class="section">
+    <div class="grid">
+        <div class="grid__item">
+            <a id="buttonQuickview" href="#" onclick="quickview();"></a>
+            <div>
+               <p> {{ product.title}}</p>
+               <p>{{ product.description}}</p>
+                <p>{{ product.vendor}}</p>
+                <p>{{ product.price}}</p>
+                <p>{{ product.featured_image}}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    jQuery.getJSON('/products/black-leather-bag.js', function(product) {
+        console.log(`
+
+        Name: ${product.title}
+        Description: ${product.description}
+        Vendor: ${product.vendor}
+        Price: ${product.price}
+        Image:  ${product.featured_image}
+        `);
+    } );
+</script>
+
+
+{% render "drew-collection" %}
+{% render "drew" %}
+{% endcomment%}
